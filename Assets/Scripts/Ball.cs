@@ -40,6 +40,26 @@ public class Ball : MonoBehaviour
         CheckIfPastPaddleBounds();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PaddleMovement>(out PaddleMovement paddle))
+        {
+            _direction.y = GetRandomYDirection();
+
+            switch (paddle.PaddleType)
+            {
+                case PaddleType.RightPaddle:
+                    if (transform.position.x < paddle.transform.position.x)
+                        _direction = new Vector2(-1, _direction.y);
+                    break;
+                case PaddleType.LeftPaddle:
+                    if (transform.position.x > paddle.transform.position.x)
+                        _direction = new Vector2(1, _direction.y);
+                    break;
+            }
+        }
+    }
+
     private void CheckIfOutOfUpperBounds()
     {
         bool isBallGoingAboveBorder = transform.position.y + _screenOffset > _boundary.Bounds.y && _direction.y > 0;
