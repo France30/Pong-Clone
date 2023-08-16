@@ -8,10 +8,17 @@ public enum PlayerInput
     AltVertical
 }
 
+public enum PaddleType
+{
+    RightPaddle,
+    LeftPaddle
+}
+
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class PaddleMovement : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private PaddleType _paddleType;
     [SerializeField] private float _speed = 5f;
     [Range(0,.3f)][SerializeField] private float _movementSmoothing = 0.05f;
     [SerializeField] private float _screenOffset = .5f;
@@ -21,6 +28,9 @@ public class PaddleMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Vector2 _velocity = Vector2.zero;
     private Boundary _boundary;
+
+    public PaddleType PaddleType { get { return _paddleType; } }
+
 
     private void Awake()
     {
