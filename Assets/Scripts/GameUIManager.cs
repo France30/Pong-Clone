@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
+    [SerializeField] private GameObject _pauseUI;
     [SerializeField] private TextMeshProUGUI _playerOneScoreUI;
     [SerializeField] private TextMeshProUGUI _playerTwoScoreUI;
 
@@ -19,5 +20,22 @@ public class GameUIManager : Singleton<GameUIManager>
                 _playerOneScoreUI.text = score.ToString();
                 break;
         }
+    }
+
+    private void OnEnable()
+    {
+        GameController.Instance.OnPauseEvent += EnablePauseUI;
+    }
+
+    private void OnDisable()
+    {
+        if (GameController.Instance == null) return;
+
+        GameController.Instance.OnPauseEvent -= EnablePauseUI;
+    }
+
+    private void EnablePauseUI(bool isEnable)
+    {
+        _pauseUI.SetActive(isEnable);
     }
 }

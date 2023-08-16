@@ -7,6 +7,11 @@ public class GameController : Singleton<GameController>
     private int _playerOneScore = 0;
     private int _playerTwoScore = 0;
 
+    private bool _isPause = false;
+
+    public delegate void OnPause(bool isPause);
+    public event OnPause OnPauseEvent;
+
     public void AddScore(PaddleType paddle)
     {
         switch(paddle)
@@ -20,5 +25,21 @@ public class GameController : Singleton<GameController>
                 GameUIManager.Instance.UpdateScoreUI(paddle, _playerOneScore);
                 break;
         }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            TogglePause();
+        }
+    }
+
+    private void TogglePause()
+    {
+        _isPause = !_isPause;
+        Time.timeScale = (_isPause) ? 0 : 1;
+
+        OnPauseEvent?.Invoke(_isPause);
     }
 }
