@@ -84,6 +84,7 @@ public class Ball : MonoBehaviour
         if (isBallPastRightPaddle || isBallPastLeftPaddle)
         {
             transform.position = _initialPosition;
+            AudioManager.Instance.Play("ScoreSFX");
 
             _direction.y = GetRandomYDirection();
             if (isBallPastRightPaddle)
