@@ -19,6 +19,8 @@ public class Ball : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<CircleCollider2D>().isTrigger = true;
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.isKinematic = true;
 

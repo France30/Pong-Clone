@@ -24,6 +24,8 @@ public class PaddleMovement : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<BoxCollider2D>().isTrigger = true;
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.isKinematic = true;
 
