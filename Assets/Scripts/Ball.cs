@@ -70,6 +70,8 @@ public class Ball : MonoBehaviour
         if (isBallGoingAboveBorder || isBallGoingBelowBorder)
         {
             _direction.y *= -1;
+
+            AudioManager.Instance.Play("WallSFX");
         }
     }
 
