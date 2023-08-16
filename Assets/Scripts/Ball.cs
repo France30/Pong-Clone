@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class Ball : MonoBehaviour
 {
     [SerializeField] private float _speed = 50f;
@@ -19,6 +19,8 @@ public class Ball : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<CircleCollider2D>().isTrigger = true;
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.isKinematic = true;
 
@@ -36,6 +38,26 @@ public class Ball : MonoBehaviour
 
         CheckIfOutOfUpperBounds();
         CheckIfPastPaddleBounds();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PaddleMovement>(out PaddleMovement paddle))
+        {
+            _direction.y = GetRandomYDirection();
+
+            switch (paddle.PaddleType)
+            {
+                case PaddleType.RightPaddle:
+                    if (transform.position.x < paddle.transform.position.x)
+                        _direction = new Vector2(-1, _direction.y);
+                    break;
+                case PaddleType.LeftPaddle:
+                    if (transform.position.x > paddle.transform.position.x)
+                        _direction = new Vector2(1, _direction.y);
+                    break;
+            }
+        }
     }
 
     private void CheckIfOutOfUpperBounds()
