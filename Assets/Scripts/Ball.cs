@@ -44,6 +44,8 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PaddleMovement>(out PaddleMovement paddle))
         {
+            AudioManager.Instance.Play("PaddleHitSFX");
+
             _direction.y = GetRandomYDirection();
 
             switch (paddle.PaddleType)
