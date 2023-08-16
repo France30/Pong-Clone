@@ -27,6 +27,12 @@ public class GameController : Singleton<GameController>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        Time.timeScale = 1;
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
