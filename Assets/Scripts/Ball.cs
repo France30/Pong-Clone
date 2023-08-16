@@ -76,20 +76,23 @@ public class Ball : MonoBehaviour
         bool isBallPastRightPaddle = transform.position.x + _screenOffset > _boundary.Bounds.x && _direction.x > 0;
         bool isBallPastLeftPaddle = transform.position.x - _screenOffset < -_boundary.Bounds.x && _direction.x < 0;
 
-        if(isBallPastRightPaddle)
+
+        if (isBallPastRightPaddle || isBallPastLeftPaddle)
         {
             transform.position = _initialPosition;
 
             _direction.y = GetRandomYDirection();
-            _direction = new Vector2(1, _direction.y);
-        }
+            if (isBallPastRightPaddle)
+            {
+                _direction = new Vector2(1, _direction.y).normalized;
+                GameController.Instance.AddScore(PaddleType.LeftPaddle);
+            }
 
-        if (isBallPastLeftPaddle)
-        {
-            transform.position = _initialPosition;
-
-            _direction.y = GetRandomYDirection();
-            _direction = new Vector2(-1, _direction.y);
+            if (isBallPastLeftPaddle)
+            {
+                _direction = new Vector2(-1, _direction.y).normalized;
+                GameController.Instance.AddScore(PaddleType.RightPaddle);
+            }
         }
     }
 
