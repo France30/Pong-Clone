@@ -7,6 +7,7 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private float _speed = 50f;
     [Range(0, .3f)][SerializeField] private float _movementSmoothing = 0.05f;
+    [SerializeField] private float _screenOffset = .5f;
 
     private Vector2 _direction;
     private Vector2 _initialPosition;
@@ -39,8 +40,8 @@ public class Ball : MonoBehaviour
 
     private void CheckIfOutOfUpperBounds()
     {
-        bool isBallGoingAboveBorder = transform.position.y + transform.localScale.y / 1.25f > _boundary.Bounds.y && _direction.y > 0;
-        bool isBallGoingBelowBorder = transform.position.y - transform.localScale.y / 1.25f < -_boundary.Bounds.y && _direction.y < 0;
+        bool isBallGoingAboveBorder = transform.position.y + _screenOffset > _boundary.Bounds.y && _direction.y > 0;
+        bool isBallGoingBelowBorder = transform.position.y - _screenOffset < -_boundary.Bounds.y && _direction.y < 0;
 
         if (isBallGoingAboveBorder || isBallGoingBelowBorder)
         {
@@ -50,8 +51,8 @@ public class Ball : MonoBehaviour
 
     private void CheckIfPastPaddleBounds()
     {
-        bool isBallPastRightPaddle = transform.position.x + transform.localScale.x / 1.25f > _boundary.Bounds.x && _direction.x > 0;
-        bool isBallPastLeftPaddle = transform.position.x - transform.localScale.x / 1.25f > _boundary.Bounds.x && _direction.x < 0;
+        bool isBallPastRightPaddle = transform.position.x + _screenOffset > _boundary.Bounds.x && _direction.x > 0;
+        bool isBallPastLeftPaddle = transform.position.x - _screenOffset < -_boundary.Bounds.x && _direction.x < 0;
 
         if(isBallPastRightPaddle)
         {

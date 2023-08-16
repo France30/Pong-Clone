@@ -14,6 +14,7 @@ public class PaddleMovement : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private float _speed = 5f;
     [Range(0,.3f)][SerializeField] private float _movementSmoothing = 0.05f;
+    [SerializeField] private float _screenOffset = .5f;
 
     private string _input;
     private float _verticalMovement;
@@ -44,8 +45,8 @@ public class PaddleMovement : MonoBehaviour
 
     private void CheckIfOutOfBounds(ref Vector2 targetVelocity)
     {
-        bool isPaddleGoingAboveBorder = transform.position.y + transform.localScale.y/1.25f > _boundary.Bounds.y && _verticalMovement > 0;
-        bool isPaddleGoingBelowBorder = transform.position.y - transform.localScale.y/1.25f < -_boundary.Bounds.y && _verticalMovement < 0;
+        bool isPaddleGoingAboveBorder = transform.position.y + _screenOffset > _boundary.Bounds.y && _verticalMovement > 0;
+        bool isPaddleGoingBelowBorder = transform.position.y - _screenOffset < -_boundary.Bounds.y && _verticalMovement < 0;
 
         if (isPaddleGoingAboveBorder || isPaddleGoingBelowBorder)
         {

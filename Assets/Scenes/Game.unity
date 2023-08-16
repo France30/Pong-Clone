@@ -222,6 +222,7 @@ MonoBehaviour:
   _playerInput: 1
   _speed: 50
   _movementSmoothing: 0.05
+  _screenOffset: 1.25
 --- !u!50 &442343068
 Rigidbody2D:
   serializedVersion: 4
@@ -424,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 50
   _movementSmoothing: 0.05
+  _screenOffset: 0.5
 --- !u!50 &551250433
 Rigidbody2D:
   serializedVersion: 4
@@ -544,6 +546,7 @@ MonoBehaviour:
   _playerInput: 0
   _speed: 50
   _movementSmoothing: 0.05
+  _screenOffset: 1.25
 --- !u!50 &2117126473
 Rigidbody2D:
   serializedVersion: 4
