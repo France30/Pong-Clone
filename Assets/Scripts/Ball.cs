@@ -44,6 +44,8 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PaddleMovement>(out PaddleMovement paddle))
         {
+            AudioManager.Instance.Play("PaddleHitSFX");
+
             _direction.y = GetRandomYDirection();
 
             switch (paddle.PaddleType)
@@ -68,6 +70,8 @@ public class Ball : MonoBehaviour
         if (isBallGoingAboveBorder || isBallGoingBelowBorder)
         {
             _direction.y *= -1;
+
+            AudioManager.Instance.Play("WallSFX");
         }
     }
 
@@ -80,6 +84,7 @@ public class Ball : MonoBehaviour
         if (isBallPastRightPaddle || isBallPastLeftPaddle)
         {
             transform.position = _initialPosition;
+            AudioManager.Instance.Play("ScoreSFX");
 
             _direction.y = GetRandomYDirection();
             if (isBallPastRightPaddle)
