@@ -8,7 +8,7 @@ public enum PlayerInput
     AltVertical
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class PaddleMovement : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
